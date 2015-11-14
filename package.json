@@ -1,0 +1,14 @@
+{
+  "name": "n-bucketizeme",
+  "version": "1.0.0",
+  "description": "This tool creates folders (buckets) per file's mime-type founded and move that file inside the bucket.",
+  "main": "bucketize.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexis Charytonow",
+  "license": "MIT",
+  "dependencies": {
+    "mime-types": "^2.1.7"
+  }
+}
