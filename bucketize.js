@@ -7,6 +7,9 @@ const
     mimeTypes = require('mime-types'),
     appConfig = require('./appConfig');
 
+if(appConfig.dirs.length === 0) {
+    console.log("You need to configure bucketize. Please edit appConfig.js.");
+}
 
 var scanDirectories = function () {
     for (let directory of appConfig.dirs) {
