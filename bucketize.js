@@ -5,13 +5,27 @@ const
     fs = require('fs'),
     path = require('path'),
     mimeTypes = require('mime-types'),
+    args = require('minimist')(process.argv.slice(2)),
     appConfig = require('./appConfig');
 
-if(appConfig.dirs.length === 0) {
-    console.log("You need to configure bucketize. Please edit appConfig.js.");
+if(args._.length !== 0) {
+    console.log("Invalid parameters detected.");
+} else {
+    if(args.dir) {
+        appConfig.dirs.push(args.dir);
+    }
+    if(args.revert) {
+        appConfig.revert = true;
+    }
 }
 
-var scanDirectories = function () {
+if(appConfig.dirs.length === 0) {
+    console.log("node bucketize.js --dir /path/to/dir to bucketize.");
+    console.log("node bucketize.js --dir /path/to/dir --revert to unbucketize. ");
+    return -1;
+}
+
+var bucketize = function () {
     for (let directory of appConfig.dirs) {
         fs.readdir(directory, function (err, filesArr) {
             if (err) throw err;
@@ -72,5 +86,42 @@ var scanDirectories = function () {
     }
 };
 
-scanDirectories();
+var unbucketize = function () {
+    for (let directory of appConfig.dirs) {
+        fs.readdir(directory, function (err, folderArr) {
+            if (err) throw err;
+            console.log("Unbucketizing: " + directory);
+            folderArr = folderArr.filter(function (file) {
+                let extension = mimeTypes.extension(mimeTypes.lookup(file));
+                return file === extension;
+            });
+            folderArr = folderArr.diff(appConfig.exclude);
+            folderArr.forEach(function (folder) {
+                let folderPath = path.join(directory, folder);
+                fs.readdir(folderPath, function (err, files) {
+                    if (err) throw err;
+                    files.forEach(function (file) {
+                        let oldPath = path.join(folderPath, file);
+                        let newPath = path.join(directory, file);
+                        fs.rename(oldPath, newPath, function (err) {
+                            if (err) throw err;
+                            files.splice(files.indexOf(file), 1);
+                            if (files.length === 0) {
+                                fs.rmdir(folderPath, function (err) {
+                                    if (err) throw err;
+                                })
+                            }
+                        });
+                    });
+                });
+            });
+        })
+    }
+};
 
+
+if(appConfig.revert && appConfig.revert === true) {
+    unbucketize();
+} else {
+    bucketize();
+}

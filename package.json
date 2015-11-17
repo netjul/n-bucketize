@@ -9,6 +9,7 @@
   "author": "Alexis Charytonow",
   "license": "MIT",
   "dependencies": {
-    "mime-types": "^2.1.7"
+    "mime-types": "^2.1.7",
+    "minimist": "^1.2.0"
   }
 }
