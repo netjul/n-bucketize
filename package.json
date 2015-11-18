@@ -1,6 +1,6 @@
 {
   "name": "n-bucketize",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This tool creates folders (buckets) per file's mime-type founded and move that file inside the bucket.",
   "main": "bucketize.js",
   "scripts": {
