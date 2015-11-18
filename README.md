@@ -1,1 +1,3 @@
-n-bucketize allows to quick sort a folder by putting its files into subfolders. The name of these subfolders are generated based on the files' mime-types founded.
+#n-bucketize
+
+This tool creates folders (buckets) per file's mime-type founded and move that file inside the bucket.
