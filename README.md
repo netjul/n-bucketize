@@ -27,4 +27,4 @@ n-bucketize --dir /path/to/dir --revert
 ### License MIT
 
 ### Author
-Alexis Charytonow, @lintuxt, 2015.
+Alexis Charytonow, @lintuxt, 2015-2017.
