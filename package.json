@@ -1,6 +1,6 @@
 {
   "name": "n-bucketize",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "This tool creates folders (buckets) per file's mime-type founded and move that file inside the bucket.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
